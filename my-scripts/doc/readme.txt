@@ -72,16 +72,19 @@ $ git branch -a
 
 syntax: git fetch url-to-repo branchname:refs/remotes/origin/branchname
 
-git fetch git://github.com/Freescale/meta-freescale dunfell:refs/remotes/origin/dunfell
+$ git fetch git://github.com/Freescale/meta-freescale dunfell:refs/remotes/origin/dunfell
+
+From git://github.com/Freescale/meta-freescale
+ * [new branch]        dunfell    -> origin/dunfell
 
 6) Update from upstream:
 git co master
 >> git remote -v
 
-official-upstream       git://git.openembedded.org/meta-python2 (fetch)
-official-upstream       git://git.openembedded.org/meta-python2 (push)
-origin  git@github.com:RobertBerger/meta-python2.git (fetch)
-origin  git@github.com:RobertBerger/meta-python2.git (push)
+official-upstream       git://github.com/Freescale/meta-freescale (fetch)
+official-upstream       git://github.com/Freescale/meta-freescale (push)
+origin  git@github.com:RobertBerger/meta-freescale.git (fetch)
+origin  git@github.com:RobertBerger/meta-freescale.git (push)
 
 >> git fetch official-upstream
 remote: Counting objects: 4043, done.
@@ -89,7 +92,7 @@ remote: Compressing objects: 100% (1273/1273), done.
 remote: Total 4043 (delta 3130), reused 3632 (delta 2727)
 Receiving objects: 100% (4043/4043), 721.50 KiB | 402.00 KiB/s, done.
 Resolving deltas: 100% (3130/3130), completed with 502 local objects.
-From git://git.openembedded.org/meta-python2
+From git://git://github.com/Freescale/meta-freescale
    62591d9..e758547  master     -> official-upstream/master
  + 2942327...a382678 master-next -> official-upstream/master-next  (forced update)
    a3fa5ce..6a1f33c  morty      -> official-upstream/morty
@@ -97,8 +100,8 @@ From git://git.openembedded.org/meta-python2
 
 7) My own branch:
 git co master
-git co official-upstream/warrior
-git checkout -b 2019-09-09-warrior-2.7+
+git co official-upstream/dunfell
+git checkout -b 2020-08-28-dunfell
 git co master
 cd my-scripts
 ./push-all-to-github.sh
@@ -107,7 +110,7 @@ cd my-scripts
 
 cd meta-virtualization
 
-git co 2019-09-09-warrior-2.7+ 
+git co 2019-09-09-warrior-2.7+
 
 stg init
 
@@ -119,7 +122,7 @@ import all patches
 
 ...
 
-stg series 
+stg series
 
 stg commit --all
 
