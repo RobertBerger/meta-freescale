@@ -19,13 +19,13 @@ git push -u origin master
 3) use my repo
 
 mv meta-freescale meta-freescale.ori
-git clone git@github.com:RobertBerger/meta-freescalep.git
+git clone git@github.com:RobertBerger/meta-freescale.git
 
 4) add upstream
 
-cd meta-python2
+cd meta-freescale
 
-git remote add official-upstream git://git.openembedded.org/meta-python2
+git remote add official-upstream git://github.com/Freescale/meta-freescale
 
 git fetch official-upstream
 
