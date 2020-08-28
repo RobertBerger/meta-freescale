@@ -2,9 +2,9 @@
 
 2) add my-scripts dir
 
-cd meta-python2
+cd meta-freescale
 
-echo "# meta-python2 fork" >> README.md
+echo "# meta-freescale fork" >> README.md
 
 git init
 
@@ -12,14 +12,14 @@ git add .
 
 git commit -m "first commit"
 
-git remote add origin git@github.com:RobertBerger/meta-python2.git
+git remote add origin git@github.com:RobertBerger/meta-freescale.git
 
 git push -u origin master
 
 3) use my repo
 
-mv meta-python2 meta-python2.ori
-git clone git@github.com:RobertBerger/meta-python2.git
+mv meta-freescale meta-freescale.ori
+git clone git@github.com:RobertBerger/meta-freescalep.git
 
 4) add upstream
 
