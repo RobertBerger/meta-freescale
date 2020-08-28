@@ -27,15 +27,52 @@ cd meta-freescale
 
 git remote add official-upstream git://github.com/Freescale/meta-freescale
 
-git fetch official-upstream
+$ git fetch official-upstream
 
-git branch -a
+warning: no common commits
+remote: Enumerating objects: 72, done.
+remote: Counting objects: 100% (72/72), done.
+remote: Compressing objects: 100% (44/44), done.
+remote: Total 33435 (delta 34), reused 47 (delta 28), pack-reused 33363
+Receiving objects: 100% (33435/33435), 42.65 MiB | 9.37 MiB/s, done.
+Resolving deltas: 100% (18856/18856), done.
+From git://github.com/Freescale/meta-freescale
+ * [new branch]        dunfell     -> official-upstream/dunfell
+ * [new branch]        master      -> official-upstream/master
+ * [new branch]        master-next -> official-upstream/master-next
+ * [new branch]        morty       -> official-upstream/morty
+ * [new branch]        pyro        -> official-upstream/pyro
+ * [new branch]        rocko       -> official-upstream/rocko
+ * [new branch]        sumo        -> official-upstream/sumo
+ * [new branch]        thud        -> official-upstream/thud
+ * [new branch]        warrior     -> official-upstream/warrior
+ * [new branch]        zeus        -> official-upstream/zeus
+ * [new tag]           2.1         -> 2.1
+ * [new tag]           2.2         -> 2.2
+
+
+$ git branch -a
+
+* master
+  remotes/official-upstream/dunfell
+  remotes/official-upstream/master
+  remotes/official-upstream/master-next
+  remotes/official-upstream/morty
+  remotes/official-upstream/pyro
+  remotes/official-upstream/rocko
+  remotes/official-upstream/sumo
+  remotes/official-upstream/thud
+  remotes/official-upstream/warrior
+  remotes/official-upstream/zeus
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/master
+
 
 5) use specific upstream branch/commit and make own branch
 
 syntax: git fetch url-to-repo branchname:refs/remotes/origin/branchname
 
-git fetch git://git.openembedded.org/meta-python2 dunfell:refs/remotes/origin/dunfell
+git fetch git://github.com/Freescale/meta-freescale dunfell:refs/remotes/origin/dunfell
 
 6) Update from upstream:
 git co master
