@@ -1,5 +1,5 @@
 SUMMARY = "Auto Response Control Module"
-LICENSE = "GPL-2.0-only & BSD"
+LICENSE = "GPL-2.0-only & BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b5881ecf398da8a03a3f4c501e29d287"
 
 inherit module
