@@ -41,12 +41,19 @@
 #
 # SPDX-License-Identifier: MIT
 
-MFGTOOL_FILESPATH ??= "\
-    ${@oe.utils.base_set_filespath(["%s/mfgtool"% p for p in "${BBPATH}".split(":")] \
-                             + ["${FILE_DIRNAME}/${BP}/mfgtool", \
-                                "${FILE_DIRNAME}/${BPN}/mfgtool", \
-                                "${FILE_DIRNAME}/files/mfgtool"] \
-                          , d)} \
+#MFGTOOL_FILESPATH ??= " \
+#    ${@base_set_filespath(["%s/mfgtool" % p for p in "${BBPATH}".split(":")] \
+#                             + ["${FILE_DIRNAME}/${BP}/mfgtool", \
+#                                "${FILE_DIRNAME}/${BPN}/mfgtool", \
+#                                "${FILE_DIRNAME}/files/mfgtool"] \
+#                          , d)} \
+#"
+
+MFGTOOL_FILESPATH ??= " \
+    ${@' '.join(['%s/mfgtool' % p for p in d.getVar('BBPATH').split(':')])} \
+    ${FILE_DIRNAME}/${BP}/mfgtool \
+    ${FILE_DIRNAME}/${BPN}/mfgtool \
+    ${FILE_DIRNAME}/files/mfgtool \
 "
 
 MFGTOOLDIR = "${WORKDIR}/mfgtool-${PN}"
