@@ -1,0 +1,165 @@
+on the build machine:
+
+backup meta-freescale (tarball)
+
+cd meta-freescale
+
+git co master
+git remote add official-upstream https://github.com/Freescale/meta-freescale
+git fetch official-upstream
+
+# here are my modifications to a previous version
+git checkout 2026-08-11-training
+
+# new branch
+git checkout -b 2026-08-11-training-merged
+git diff 2026-08-11-training
+# they should be identical and we should be on the 2026-08-11-training-merged branch
+
+# rebase
+git rebase official-upstream/master
+
+Auto-merging classes/image_populate_mfgtool.bbclass
+CONFLICT (content): Merge conflict in classes/image_populate_mfgtool.bbclass
+error: could not apply 0e3bd323... classes/image_populate_mfgtool.bbclass: replaced base_set_filespath
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+Could not apply 0e3bd323... classes/image_populate_mfgtool.bbclass: replaced base_set_filespath
+
+vim classes/image_populate_mfgtool.bbclass
+
+base_set_filespath was removed so I rewrote it:
+
+#MFGTOOL_FILESPATH ??= " \
+#    ${@base_set_filespath(["%s/mfgtool" % p for p in "${BBPATH}".split(":")] \
+#                             + ["${FILE_DIRNAME}/${BP}/mfgtool", \
+#                                "${FILE_DIRNAME}/${BPN}/mfgtool", \
+#                                "${FILE_DIRNAME}/files/mfgtool"] \
+#                          , d)} \
+#"
+
+MFGTOOL_FILESPATH ??= " \
+    ${@' '.join(['%s/mfgtool' % p for p in d.getVar('BBPATH').split(':')])} \
+    ${FILE_DIRNAME}/${BP}/mfgtool \
+    ${FILE_DIRNAME}/${BPN}/mfgtool \
+    ${FILE_DIRNAME}/files/mfgtool \
+"
+
+git add classes/image_populate_mfgtool.bbclass
+git rebase --continue
+
+[detached HEAD 251bccde] classes/image_populate_mfgtool.bbclass: replaced base_set_filespath
+ Author: Robert Berger <Robert.Berger@ReliableEmbeddedSystems.com>
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+Auto-merging recipes-extended/pktgen-dpdk/pktgen-dpdk_21.05.0.bb
+CONFLICT (content): Merge conflict in recipes-extended/pktgen-dpdk/pktgen-dpdk_21.05.0.bb
+error: could not apply 69c66167... pktgen-dpdk: LICENSE update
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+Could not apply 69c66167... pktgen-dpdk: LICENSE update
+
+
+vim recipes-extended/pktgen-dpdk/pktgen-dpdk_21.05.0.bb
+
+SUMMARY = "Traffic generator powered by DPDK"
+DESCRIPTION = "Pktgen is a high-performance software traffic generator built on \
+               the DPDK fast packet processing framework, used to send and \
+               receive test traffic at line rate for network benchmarking."
+HOMEPAGE = "https://git.dpdk.org/apps/pktgen-dpdk/"
+SECTION = "console/network"
+LICENSE = "BSD-3-Clause"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=0245ceedaef59ae0129500b0ce1e8a45"
+
+git add recipes-extended/pktgen-dpdk/pktgen-dpdk_21.05.0.bb
+git rebase --continue
+
+Auto-merging recipes-extended/skmm-ep/skmm-ep_git.bb
+CONFLICT (content): Merge conflict in recipes-extended/skmm-ep/skmm-ep_git.bb
+error: could not apply 9d4d6918... skmm-ep: LICENSE update
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+Could not apply 9d4d6918... skmm-ep: LICENSE update
+
+vim recipes-extended/skmm-ep/skmm-ep_git.bb
+
+SUMMARY = "SKMM PCIe endpoint application"
+DESCRIPTION = "SKMM application for PCIe endpoint"
+HOMEPAGE = "https://github.com/nxp-qoriq-yocto-sdk/skmm-ep"
+SECTION = "skmm-ep"
+LICENSE = "BSD-3-Clause OR GPL-2.0-or-later"
+LIC_FILES_CHKSUM = "file://Makefile;endline=30;md5=39e58bedc879163c9338596e52df5b1f"
+
+git add recipes-extended/skmm-ep/skmm-ep_git.bb
+git rebase --continue
+
+Auto-merging recipes-kernel/kernel-modules/kernel-module-ar_git.bb
+CONFLICT (content): Merge conflict in recipes-kernel/kernel-modules/kernel-module-ar_git.bb
+error: could not apply 81740de1... kernel-module-ar: LICENSE update
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+Could not apply 81740de1... kernel-module-ar: LICENSE update
+
+vim recipes-kernel/kernel-modules/kernel-module-ar_git.bb
+
+SUMMARY = "Auto Response Control Module"
+DESCRIPTION = "Kernel module providing QorIQ SEC auto-response control."
+HOMEPAGE = "https://github.com/nxp-qoriq-yocto-sdk/auto-resp"
+SECTION = "kernel"
+LICENSE = "BSD-3-Clause OR GPL-2.0-or-later"
+LIC_FILES_CHKSUM = "file://COPYING;md5=b5881ecf398da8a03a3f4c501e29d287"
+
+git add recipes-kernel/kernel-modules/kernel-module-ar_git.bb
+git rebase --continue
+
+Auto-merging recipes-kernel/skmm-host/skmm-host_git.bb
+CONFLICT (content): Merge conflict in recipes-kernel/skmm-host/skmm-host_git.bb
+error: could not apply afca7526... skmm-host: LICENSE update
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+Could not apply afca7526... skmm-host: LICENSE update
+
+vim recipes-kernel/skmm-host/skmm-host_git.bb
+
+SUMMARY = "SKMM host driver"
+DESCRIPTION = "skmm host driver offload data to PCIe EP and push the data en-decrypted back to application"
+HOMEPAGE = "https://github.com/nxp-qoriq-yocto-sdk/skmm-host"
+SECTION = "c293-skmm-host"
+LICENSE = "BSD-3-Clause OR GPL-2.0-or-later"
+LIC_FILES_CHKSUM = "file://COPYING;md5=99803d8e9a595c0bdb45ca710f353813"
+
+git add recipes-kernel/skmm-host/skmm-host_git.bb
+git rebase --continue
+
+Auto-merging recipes-bsp/mxsldr/mxsldr_git.bb
+CONFLICT (content): Merge conflict in recipes-bsp/mxsldr/mxsldr_git.bb
+error: could not apply 0360e49d... mxsldr: source.denx.de/master github.com/Freescale/mxsldr.git/master
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+Could not apply 0360e49d... mxsldr: source.denx.de/master github.com/Freescale/mxsldr.git/master
+
+vim recipes-bsp/mxsldr/mxsldr_git.bb
+
+DEPENDS = "libusb1"
+
+PV = "0.0.0+git${SRCPV}"
+SRC_URI = "git://github.com/Freescale/mxsldr.git;branch=master;protocol=https \
+           file://0001-Do-not-ignore-OE-cflags-and-ldflags.patch \
+           "
+SRCREV = "c40d80472525e1d57dae5317c028b745968c0399"
+
+git add recipes-bsp/mxsldr/mxsldr_git.bb
+git rebase --continue
+
+Successfully rebased and updated refs/heads/2026-08-11-training-merged.
