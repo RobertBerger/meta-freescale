@@ -9,12 +9,12 @@ git remote add official-upstream https://github.com/Freescale/meta-freescale
 git fetch official-upstream
 
 # here are my modifications to a previous version
-git checkout 2026-08-11-training
+git checkout 2026-08-18-training-wrynose-blacksail
 
 # new branch
-git checkout -b 2026-08-11-training-merged
-git diff 2026-08-11-training
-# they should be identical and we should be on the 2026-08-11-training-merged branch
+git checkout -b 2026-08-18-training-wrynose-blacksail-merged
+git diff 2026-08-18-training-wrynose-blacksail
+# they should be identical and we should be on the 2026-08-18-training-wrynose-blacksail-merged branch
 
 # rebase
 git rebase official-upstream/master
